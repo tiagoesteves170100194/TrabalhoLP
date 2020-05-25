@@ -26,13 +26,13 @@ public class NoSistema {
 
 
 		public HashMap<String, NoSistema> getFilho() {
-			return filho;
+			return filhos;
 		}
 
 
 
 		public void setFilho(HashMap<String, NoSistema> filho) {
-			this.filho = filho;
+			this.filhos = filhos;
 		}
 
 
@@ -64,7 +64,7 @@ public class NoSistema {
 		public NoSistema(String nomeficheiro, boolean Diretorio){
 	        this.nomeficheiro = nomeficheiro;
 	        this.Diretorio = Diretorio;
-	        this.filho = new HashMap<>();
+	        this.filhos = new HashMap<>();
 	        
 	        if(!this.Diretorio){
 	            this.conteudo = new StringBuffer();
