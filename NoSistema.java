@@ -5,8 +5,8 @@ public class NoSistema {
 	
 	//Atributos
 	    private String nomeficheiro;
-	    HashMap<String, NoSistema> filho;
-	    boolean Diretorio; //determina se È ou n„o um diretÛrio
+	    HashMap<String, NoSistema> filhos;
+	    boolean Diretorio; //determina se √© ou n√£o um diret√≥rio
 	    StringBuffer conteudo; //serve para ver o conteudo do ficheiro
 	    
 	    
