@@ -84,9 +84,8 @@ public interface InterfaceSF {
 	
 	public NoSistema catFicheiro(String caminho, String nomeficheiro);
 	
-	/*
-	 Boolean para verificar se é uma pasta ou um ficheiro 
-	 */
-	//public boolean verificar();
+	/*Acrescenta mais conteudo ao ficheiro original*/
+	public NoSistema acrescentarficheiro(String caminho, String nomeficheiro, String conteudo);
 
+	
 }
