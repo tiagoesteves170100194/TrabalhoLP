@@ -1,17 +1,19 @@
 package pacote_SF;
+
 import java.util.HashMap;
 
 public class NoSistema {
 	
 	//Atributos
-	    private String nomeficheiro;
-	    HashMap<String, NoSistema> filhos;
-	    boolean Diretorio; //determina se √© ou n√£o um diret√≥rio
+	    private String nomeficheiro; //Identificar pelo nome do ficheiro
+	    boolean Verificar; //Verificar se È um ficheiro ou uma pasta
+	    HashMap<String, NoSistema> filhos; 
 	    StringBuffer conteudo; //serve para ver o conteudo do ficheiro
 	    
 	    
 
 	    //Getters e Setters
+	    
 	    
 	    public String getNomeficheiro() {
 			return nomeficheiro;
@@ -19,9 +21,12 @@ public class NoSistema {
 
 
 
+
+
 		public void setNomeficheiro(String nomeficheiro) {
 			this.nomeficheiro = nomeficheiro;
 		}
+		
 
 
 
@@ -31,22 +36,16 @@ public class NoSistema {
 
 
 
-		public void setFilho(HashMap<String, NoSistema> filho) {
-			this.filhos = filhos;
+
+		public boolean isVerificar() {
+			return Verificar;
 		}
 
 
 
-		public boolean isDiretorio() {
-			return Diretorio;
+		public void setVerificar(boolean verificar) {
+			Verificar = verificar;
 		}
-
-
-
-		public void setDiretorio(boolean diretorio) {
-			Diretorio = diretorio;
-		}
-
 
 
 		public StringBuffer getConteudo() {
@@ -61,14 +60,15 @@ public class NoSistema {
 
 
 		//Construtores
-		public NoSistema(String nomeficheiro, boolean Diretorio){
+		public NoSistema(String nomeficheiro, boolean Verificar){
 	        this.nomeficheiro = nomeficheiro;
-	        this.Diretorio = Diretorio;
 	        this.filhos = new HashMap<>();
-	        
-	        if(!this.Diretorio){
+	        this.Verificar= Verificar;
+	        //Aqui se verificar que n„o È uma pasta, assume que È ficheiro e pode escrever contÈudo
+	     if(!this.Verificar){ 
 	            this.conteudo = new StringBuffer();
 	        }
+	        
 	    }
 		
 		
