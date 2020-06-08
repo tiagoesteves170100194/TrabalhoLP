@@ -5,18 +5,28 @@ import java.util.List;
 public interface InterfaceSF {
 	
 	/*
-		Vai servir para inserir a raiz
+		Vai servir para  inserir a raiz
 		
-		O parâmetro "m" significa o tamanho, em x bytes, do espaço do disco a alocar
+		
 	 */
-	public NoSistema SistemaFicheiros(int m);
+	public void SistemaFicheiros();
 	
 	/*
-	 Criação de um diretório na raiz
+	 Realiza uma pesquisa pela diretória  e returna
+	 uma referencia para a diretória se existir ou nulo se não existir
 	 
-	 O parâmetro "nome" significa o nome que a diretoria(pasta) vai receber
 	 */
-	public NoSistema Criardiretoria(String[] nome);
+	//public NoSistema Pesquisadiretoria(String nomepasta);
+	
+	/*
+	 Criação de uma diretória e verifica se criou a diretória ou não
+	 
+	 O parâmetro "caminho" significa o nome que a diretoria(pasta) vai receber
+	 
+	 */
+	
+	
+	public boolean Criardiretoria(String caminho);
 	
 	/*
 	 Criação do ficheiro 
@@ -40,7 +50,7 @@ public interface InterfaceSF {
 	 parametro "caminho" indica o caminho que o utilizador quer ver para fazer a listagem
 	 
 	 */
-	public List<String> listar(String[] caminho);
+	public List<String> listar(String caminho);
 	
 	/*
 	 Eliminar um ficheiro
@@ -53,7 +63,7 @@ public interface InterfaceSF {
 	public NoSistema removerfich(String[] nome);
 	
 	/*
-	 Eliminar um diretorio
+	 Eliminar uma pasta
 	 
 	  parametro "nome" para indicar o caminho absoluto para o nome do diretório e 
 	  eliminar se a diretória(pasta) estiver nula, ou seja, retorna null se a pasta estiver vazia.
@@ -72,7 +82,11 @@ public interface InterfaceSF {
 	
 	 */
 	
-	public NoSistema catFicheiro(String[] caminho, String nomeficheiro);
+	public NoSistema catFicheiro(String caminho, String nomeficheiro);
 	
+	/*
+	 Boolean para verificar se é uma pasta ou um ficheiro 
+	 */
+	//public boolean verificar();
 
 }
