@@ -5,11 +5,10 @@ import java.util.HashMap;
 public class NoSistema {
 	
 	//Atributos
-	    private String nomeficheiro; //Identificar pelo nome do ficheiro
-	    boolean Verificar; //Verificar se é um ficheiro ou uma pasta
-	    HashMap<String, NoSistema> filhos; 
-	    StringBuffer conteudo; //serve para ver o conteudo do ficheiro
-	    
+	    private String nomeficheiro; //Identifica o nome do ficheiro
+	    boolean Verificar; //Verifica se é um ficheiro ou uma diretoria
+	    HashMap<String, NoSistema> filhos; //Serve para verificar o nome do diretorio/ficheiro
+	    StringBuffer conteudo; //serve para ver o conteúdo do ficheiro
 	    
 
 	    //Getters e Setters
@@ -21,19 +20,16 @@ public class NoSistema {
 
 
 
-
-
 		public void setNomeficheiro(String nomeficheiro) {
 			this.nomeficheiro = nomeficheiro;
 		}
 		
 
 
-
+ 
 		public HashMap<String, NoSistema> getFilho() {
 			return filhos;
 		}
-
 
 
 
@@ -59,17 +55,24 @@ public class NoSistema {
 		}
 
 
-		//Construtores
+		//Construtores	
 		public NoSistema(String nomeficheiro, boolean Verificar){
 	        this.nomeficheiro = nomeficheiro;
 	        this.filhos = new HashMap<>();
 	        this.Verificar= Verificar;
-	        //Aqui se verificar que não é uma pasta, assume que é ficheiro e pode escrever contéudo
-	     if(!this.Verificar){ 
+	        //Aqui verifica se não é uma diretoria, assume que é um ficheiro e pode escrever conteúdo
+	        if(!this.Verificar){ 
 	            this.conteudo = new StringBuffer();
 	        }
 	        
 	    }
+
+
+
+
+
+
+
 		
 		
 	}
