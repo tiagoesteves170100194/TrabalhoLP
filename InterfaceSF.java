@@ -4,88 +4,64 @@ import java.util.List;
 
 public interface InterfaceSF {
 	
-	/*
-		Vai servir para  inserir a raiz
-		
-		
-	 */
-	public void SistemaFicheiros();
+
 	
 	/*
-	 Realiza uma pesquisa pela diretória  e returna
-	 uma referencia para a diretória se existir ou nulo se não existir
+	 Criação de uma diretoria e verifica se criou a diretoria ou não
+	 (Assumimos que tem de ter um caminho absoluto e é Case sensitive)
+	 
+	 O parâmetro "caminho" significa o caminho onde a diretoria vai ser inserida na árvore
 	 
 	 */
-	//public NoSistema Pesquisadiretoria(String nomepasta);
+	public boolean criarDiretoria(String caminho);
 	
 	/*
-	 Criação de uma diretória e verifica se criou a diretória ou não
+	 Criação do ficheiro
+	 (Assumimos que tem de ter um caminho absoluto e é Case sensitive) 
 	 
-	 O parâmetro "caminho" significa o nome que a diretoria(pasta) vai receber
+	 parâmetro "caminho" para indicar qual é o caminho onde vai parar o ficheiro 
 	 
-	 */
-	
-	
-	public boolean Criardiretoria(String caminho);
-	
-	/*
-	 Criação do ficheiro 
+	 parâmetro "nomeficheiro" para indicar o nome do ficheiro
 	 
-	 parametro "caminho" para indicar qual é o caminho onde vai parar o ficheiro 
-	 (assumitos que é um caminho absoluto)
-	 
-	 parametro "nome" para indicar o nome do ficheiro
-	 
-	 parametro "k" para indicar o tamanho do ficheiro a criar (em KB)
-	 
-	 parametro "texto" para escrever o texto dentro do ficheiro
+	 parâmetro "conteudo" para escrever o texto dentro do ficheiro
 	  
 	 */
-	public NoSistema Criarficheiro(String[] caminho, String nome, int k, String texto);
+	public void criarFicheiro(String caminho, String nomeficheiro, String conteudo);
 	
 	/*
-	 Fazer a listagem das diretorias e ficheiros indicando o caminho da diretoria 
-	 returnando assim uma lista de forma ordenada
+	 Faz a listagem das diretorias e ficheiros indicando o caminho da própria diretoria 
+	 retornando assim uma lista de forma ordenada
+	 (Assumimos que tem de ter um caminho absoluto e é Case sensitive)
 	 
-	 parametro "caminho" indica o caminho que o utilizador quer ver para fazer a listagem
+	 parâmetro "caminho" indica qual o caminho que o utilizador quer percorrer para fazer a listagem das diretorias 
 	 
 	 */
 	public List<String> listar(String caminho);
 	
-	/*
-	 Eliminar um ficheiro
-	 
-	  parametro "nome" para indicar o caminho absoluto para o nome do ficheiro e eliminar de seguida
-	  Retorna null se o ficheiro indicado pelo utilizador  não existir
-	 
-	 */
-	
-	public NoSistema removerfich(String[] nome);
+
 	
 	/*
-	 Eliminar uma pasta
+	 Mostrar o conteúdo de um ficheiro 
+	 (Assumimos que tem de ter um caminho absoluto e é Case sensitive)
 	 
-	  parametro "nome" para indicar o caminho absoluto para o nome do diretório e 
-	  eliminar se a diretória(pasta) estiver nula, ou seja, retorna null se a pasta estiver vazia.
-	  Retorna uma exceção se a pasta não estiver vazia
+	 parâmetro "caminho" para indicar o caminho onde se encontra o ficheiro
+	  parâmetro "nomeficheiro" para indicar qual é o ficheiro para mostrar o seu conteúdo
 	  
-	  
+	
 	 */
 	
-	public NoSistema removerpasta(String[] nome);
+	public String catFicheiro(String caminho, String nomeficheiro);
 	
 	/*
-	 Mostrar o contéudo de um ficheiro 
-	 
-	  parametro "caminho" para indicar o caminho onde está o ficheiro
-	  parametro "nomeFicheiro" para indicar qual é o ficheiro a mostrar o seu conteúdo
-	
+	 Acrescenta mais conteúdo ao próprio ficheiro que já continha um conteúdo original ou não 
+	 (Assumimos que tem de ter um caminho absoluto e é Case sensitive)
+	   
+	   parâmetro "caminho" para indicar o caminho onde está o ficheiro
+	   parâmetro "nomeficheiro" para indicar qual é o nome do ficheiro para mostrar o seu conteúdo
+	   parâmetro "conteudo" para inserir conteúdo dentro de um ficheiro existente
+	   
 	 */
-	
-	public NoSistema catFicheiro(String caminho, String nomeficheiro);
-	
-	/*Acrescenta mais conteudo ao ficheiro original*/
-	public NoSistema acrescentarficheiro(String caminho, String nomeficheiro, String conteudo);
+	public void acrescentarFicheiro(String caminho, String nomeficheiro, String conteudo);
 
 	
 }
