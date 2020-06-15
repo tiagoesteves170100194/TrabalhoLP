@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class Sistema_Ficheiros {
+public class Sistema_Ficheiros implements InterfaceSF {
 
 	 NoSistema raiz;
 	
 	/*
-	 Inicializa o Sistema de Ficheiros com uma nova diretória vazia chama raiz.
+	 Inicializa o Sistema de Ficheiros com uma nova diretoria vazia chamada raiz.
 	  
 	 */
 	public Sistema_Ficheiros() {
@@ -20,82 +20,99 @@ public class Sistema_Ficheiros {
 	/*
 	 Criação de uma diretória vazia com um caminho absoluto
 	 
-	 O parâmetro "caminho" vai servir para separar os caminhos do dirétorio
+
 	
 	 */
 	
-	public boolean Criardiretoria(String caminho) {
-		//Verifica se a raiz da pasta está bem criada e assume que as letras são todas minúsculas 
-		//e é um caminho absoluto
+	public boolean criarDiretoria(String caminho) {
+		//Verifica se a raiz da diretoria está bem criada e assume que as letras são todas minúsculas 
+		//e se é um caminho absoluto
+		
 		if(caminho == null|| caminho.isEmpty() || caminho.equals("/") || !caminho.startsWith("/")) {
 			return false;
 		}
 		
 		String[] tokens = caminho.split("/"); //Este token vai servir para separar os caminhos por "/"
-		NoSistema atual= raiz;
-		boolean criado = false;
+		NoSistema atual= raiz; //Assume inicialmente como a raiz
+		boolean criado = false; //Esta variável boolean vai verificar se a diretoria foi criada com sucesso ou não
+		//Este vai servir para fazer a incrementação das "/"
 		for(int i=1; i<tokens.length; i++ ) {
-			//Aqui verifica se o diretório estiver com uma barra cria um novo diretório
-			if(atual.getFilho().containsKey(tokens[i])) {
+			//Aqui diz se o HashMap do getFilho, em que o atual é a raiz, não for a chave da raiz então podemos criar mais diretorias
+			if(!atual.getFilho().containsKey(tokens[i])) {
 				atual.getFilho().put(tokens[i],new NoSistema(tokens[i], true));
 				criado=true;
 			}
-			atual= atual.getFilho().get(tokens[i]);
+			atual= atual.getFilho().get(tokens[i]); //De seguida vai extrair a chave que foi criada da diretoria
 		}
-		return criado;
+		return criado; //retorna a diretoria criada
 		
 		
 	}
 	
-	/*Serve para a fazer a listagem do conteudo presente
-	 O parâmetro caminho serve para indicar o caminho atual para fazer
-	 a respetiva listagem*/
+	/*
+	 Serve para a fazer a listagem do conteúdo presente
+	
+	 */
 	 public List<String> listar(String caminho){
-	       List<String> lista = new ArrayList<>();
-	       NoSistema atual = irdiretorioatual(caminho);
-	       lista.addAll(atual.getFilho().keySet());
-	       Collections.sort(lista);
-	       return lista;
+	       List<String> lista = new ArrayList<>(); //Cria-se uma variável chamada "lista" para fazer a listagem das diretorias e ficheiros
+	       NoSistema atual = irDiretoriaAtual(caminho); //Vai servir para percorrer todos as diretorias para fazer a listagem
+	       lista.addAll(atual.getFilho().keySet()); //Aqui vai adicionar à lista todas as chaves que foram criadas com as diretorias e ficheiros com o keySet()  
+	       Collections.sort(lista); //Chama-se a classe Collections para ordenar a lista de forma ascendente
+	       return lista; //Retorna a lista de forma ordenada
 	 }
-	 /*Serve para verificar se o diretório atual é válido ou não, sendo este, um método recursivo*/
-	   private  NoSistema irdiretorioatual(String caminho) {
+	 /*Serve para verificar se o diretório atual é válido ou não, sendo este, um método recursivo
+
+	  */
+	   private  NoSistema irDiretoriaAtual(String caminho) {
+		   //Aqui faz uma validação se o caminho criado foi feito com sucesso
 	       if(caminho == null || caminho.isEmpty() || caminho.equals("/") || !caminho.startsWith("/")) {
-	           throw new IllegalArgumentException("Caminho inválido. Por favor fornece um caminho absoluto válido");
+	           throw new IllegalArgumentException("Caminho inválido. Por favor forneça um caminho absoluto válido");
 	       }
 	       NoSistema atual = raiz;
 	       String[] tokens = caminho.split("/");
 	       for(int i=1; i<tokens.length; i++){
+	    	   //Aqui verifica se o caminho percorrido para uma diretoria não tiver uma chave criada então lança uma validação para fornecer um caminho absoluto válido
 	           if(!atual.getFilho().containsKey(tokens[i])){
-	               throw new IllegalArgumentException("Caminho inválido. Por favor fornece um caminho absoluto válido");
+	               throw new IllegalArgumentException("Caminho inválido. Por favor forneça um caminho absoluto válido");
 	           }
-	           atual = atual.getFilho().get(tokens[i]);
+	           atual = atual.getFilho().get(tokens[i]); //De seguida vai trazer o caminho da diretoria atual 
 	       }
-	       return atual;
+	       return atual; //Retorna a diretoria atual
 	   }
-	   /*Serve para verificar se o caminho é válido senão for o ficheiro não é encontrado*/
-	   public void acrescentarficheiro(String caminho, String nomeficheiro, String conteudo){
-	       if(caminho == null || caminho.isEmpty() || caminho.equals("/") || !caminho.startsWith("/")) {
-	           throw new IllegalArgumentException("Caminho inválido. Por favor fornece um caminho absoluto válido");
+	   
+	   /*Serve para verificar se o caminho é válido senão for o ficheiro não é encontrado
+	     
+	    */
+	   public void acrescentarFicheiro(String caminho, String nomeficheiro, String conteudo){
+	       
+		   if(caminho == null || caminho.isEmpty() || caminho.equals("/") || !caminho.startsWith("/")) {
+	           throw new IllegalArgumentException("Caminho inválido. Por favor forneça um caminho absoluto válido");
 	       }
-	       NoSistema atual = irdiretorioatual(caminho).getFilho().get(nomeficheiro);
+	       NoSistema atual = irDiretoriaAtual(caminho).getFilho().get(nomeficheiro); //Aqui para adicionar mais conteúdo ao ficheiro temos de percorrer o caminho da diretoria, ir buscar o HashMap que é o getFilho e trazer o nome do ficheiro
+	       
+	       //Se o ficheiro que o utilizador procurar não existir para acrescentar mais conteudo então manda uma validação a dizer "Ficheiro não encontrado"
 	       if(atual==null){
 	               throw new IllegalArgumentException("Ficheiro não encontrado");
 	       }
-	       atual.conteudo.append(conteudo);
+	       atual.conteudo.append(conteudo); //Se existir esse ficheiro adiciona o contéudo que queremos adicionar ao ficheiro
 	   }
 	   /*Serve para criar um ficheiro e depois verificar o caminho para ver se está tudo bem*/
-	   public void Criarficheiro(String caminho, String nomeficheiro, String conteudo){
-		   NoSistema atual = irdiretorioatual(caminho);
+	   public void criarFicheiro(String caminho, String nomeficheiro, String conteudo){
+		  
+		   NoSistema atual = irDiretoriaAtual(caminho);  
+		   //Aqui vai verificar se existir a chave desse ficheiro vai acrescentar ao ficheiro existente o contéudo adicional ao original
 		     if(atual.getFilho().containsKey(nomeficheiro)){
-		    	 acrescentarficheiro(caminho, nomeficheiro, conteudo);
+		    	 acrescentarFicheiro(caminho, nomeficheiro, conteudo);
+		    //Senão cria um novo ficheiro
 		     }else{
 		        atual.getFilho().put(nomeficheiro, new NoSistema(nomeficheiro, false));
-		        acrescentarficheiro(caminho, nomeficheiro, conteudo);
+		        acrescentarFicheiro(caminho, nomeficheiro, conteudo);
 		     }
 	   }
 	   /*Serve para fazer a pesquisa do nome do ficheiro, para ver o seu conteudo*/
 	   public String catFicheiro(String caminho, String nomeficheiro) {
-		   NoSistema atual = irdiretorioatual(caminho);
-	       return atual.getFilho().get(nomeficheiro).conteudo.toString();
+		   NoSistema atual = irDiretoriaAtual(caminho); //Aqui vai ao caminho onde está localizado o mesmo para ir ao ficheiro
+	       return atual.getFilho().get(nomeficheiro).conteudo.toString(); //Aqui vai extrair o conteúdo do ficheiro
 	   }
+
 }
